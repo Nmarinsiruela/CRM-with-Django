@@ -24,12 +24,13 @@ class DatastoreTestCase(unittest.TestCase):
         # Alternatively, you could disable caching by
         # using ndb.get_context().set_cache_policy(False)
         ndb.get_context().clear_cache()
-        self.user = User(email="test@agilemonkeys.com", name="Test", surname="Agile", is_admin=True)
+        self.user = User(email="nmarinsiruela@gmail.com", name="Test", surname="Agile", is_admin=True)
 
 # [START User Tests]
     def test_new_valid_user(self):
         result = log_in(self.user, self.user.name, self.user.surname, True)
-        self.assertEqual(result.text, "New User Created")
+        self.assertEqual(result.text, "Special user created")
+        self.assertEqual(len(User.query().fetch()), 1)
 
     def test_returning_user(self):
         self.user.put()
@@ -38,20 +39,21 @@ class DatastoreTestCase(unittest.TestCase):
         self.assertEqual(result.is_admin, True)
 
     def test_returning_user_2(self):
-        valid_user = User(email="nmarinsiruela@gmail.com", name="Nestor", surname="Marin", is_admin=False)
+        valid_user = User(email="test_no_admin@agilemonkeys.com", name="No_Admin", surname="Test", is_admin=False)
         valid_user.put()
         result = log_in(valid_user, valid_user.name, valid_user.surname, True)
         self.assertEqual(result.text, "Correct Login")
         self.assertEqual(result.is_admin, False)
+        self.assertEqual(result.name,"No_Admin")
 
     def test_no_user(self):
         result = log_in(None, None, None, True)
         self.assertEqual(result.text, "Error. Invalid Data")
 
     def test_invalid_user(self):
-        invalid_user = User(email="test@test.com", name="Bad", surname="Test", is_admin=True)
+        invalid_user = User(email="test", name="Bad", surname="Test", is_admin=True)
         result = log_in(invalid_user, invalid_user.name, invalid_user.surname, True)
-        self.assertEqual(result.text, "Error. Invalid User Domain")
+        self.assertEqual(result.text, "Error. Invalid user detected")
 # [END   User Tests]
 
 

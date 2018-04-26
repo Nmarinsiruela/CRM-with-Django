@@ -1,7 +1,6 @@
 from google.appengine.ext import ndb
 
-# TODO: Insert User into Workday.
-
+#TODO: Insert the Photo property into the Customer Model.
 
 # [START Models]
 class User(ndb.Model):
@@ -12,7 +11,9 @@ class User(ndb.Model):
     is_admin = ndb.BooleanProperty()
 
 class Customer(ndb.Model):
-    """ Model of the Customer of the CRM. """
+    """
+    Model of the Customer of the CRM.
+    """
     id = ndb.IntegerProperty(indexed=True)
     name = ndb.StringProperty()
     surname = ndb.StringProperty()
