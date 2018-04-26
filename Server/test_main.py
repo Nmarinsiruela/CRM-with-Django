@@ -1,6 +1,10 @@
 #!/usr/bin/env python
-#Calling: python runner.py ~/google/google-cloud-sdk/platform/google_appengine
-# Call: runner.py %HOME%\AppData\Local\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine
+
+# Call in UNIX: python runner.py ~/google/google-cloud-sdk/platform/google_appengine
+# Call in Bash: ~/AppData/Local/Google/Cloud\ SDK/google-cloud-sdk/platform/google_appengine/runner.py .
+# Call in Windows (the file runner.py has to be in said path): "%HOME%\AppData\Local\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine\runner.py" .
+
+
 # Copyright 2016 Google Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,7 +58,7 @@ class DatastoreTestCase(unittest.TestCase):
         User().put()
         self.assertEqual(1, len(User.query().fetch(2)))
 
-    def testentityok(self):
+    def testEntityOk(self):
         test = User(email="user@test.com")
         test.put()
         self.assertEqual("user@test.com", User.query().get().email)

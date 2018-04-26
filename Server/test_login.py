@@ -24,18 +24,34 @@ class DatastoreTestCase(unittest.TestCase):
         # Alternatively, you could disable caching by
         # using ndb.get_context().set_cache_policy(False)
         ndb.get_context().clear_cache()
-        self.user = User(email="test@test.com", name="Test", surname="Agile", is_admin=True)
+        self.user = User(email="test@agilemonkeys.com", name="Test", surname="Agile", is_admin=True)
 
 # [START User Tests]
-    def test_no_user(self):
+    def test_new_valid_user(self):
         result = log_in(self.user, self.user.name, self.user.surname, True)
-        self.assertEqual(result.text, "New Login")
+        self.assertEqual(result.text, "New User Created")
 
     def test_returning_user(self):
         self.user.put()
         result = log_in(self.user, self.user.name, self.user.surname, True)
         self.assertEqual(result.text, "Correct Login")
         self.assertEqual(result.is_admin, True)
+
+    def test_returning_user_2(self):
+        valid_user = User(email="nmarinsiruela@gmail.com", name="Nestor", surname="Marin", is_admin=False)
+        valid_user.put()
+        result = log_in(valid_user, valid_user.name, valid_user.surname, True)
+        self.assertEqual(result.text, "Correct Login")
+        self.assertEqual(result.is_admin, False)
+
+    def test_no_user(self):
+        result = log_in(None, None, None, True)
+        self.assertEqual(result.text, "Error. Invalid Data")
+
+    def test_invalid_user(self):
+        invalid_user = User(email="test@test.com", name="Bad", surname="Test", is_admin=True)
+        result = log_in(invalid_user, invalid_user.name, invalid_user.surname, True)
+        self.assertEqual(result.text, "Error. Invalid User Domain")
 # [END   User Tests]
 
 
