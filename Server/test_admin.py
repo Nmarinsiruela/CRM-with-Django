@@ -95,7 +95,7 @@ class DatastoreTestCase(unittest.TestCase):
 # [END   Delete Tests]
 
 # [START Update Tests]
-    '''
+    
     def test_update_user(self):
         self.admin.put()
         valid_user = User(email="nmarinsiruela@gmail.com", name="Nestor", surname="Marin", is_admin=False)
@@ -138,7 +138,7 @@ class DatastoreTestCase(unittest.TestCase):
         result = update_user(self.admin, self.admin.email, "NewName", "NewSurname", False, True)
         self.assertEqual(result.text, "You cannot remove your admin privileges")
         self.assertEqual(result.response_code, 400)
-    '''
+    
 # [END   Update Tests]
 
 # [START Read Tests]
