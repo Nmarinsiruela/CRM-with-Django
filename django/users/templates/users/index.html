@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}User List{% endblock %}
+
+{% block content %}
+
+{% if user_list %}
+
+    <a href="{% url 'users:create' %}">Create New User</a>
+    <ul>
+    {% for user_selected in user_list %}
+    <li><a href="{% url 'users:detail' user_selected.id %}">{{user_selected.last_name}},{{ user_selected.first_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No customers found.</p>
+{% endif %}
+
+{% endblock %}

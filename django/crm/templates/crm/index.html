@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Customer List{% endblock %}
+
+{% block content %}
+
+{% if latest_customer_list %}
+    <ul>
+    {% for customer in latest_customer_list %}
+    <li><a href="{% url 'crm:detail' customer.id %}">{{customer.surname}},{{ customer.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No customers found.</p>
+{% endif %}
+
+{% endblock %}

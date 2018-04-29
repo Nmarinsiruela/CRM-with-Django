@@ -1,12 +1,24 @@
 REST API for a CRM Interface
 
+# Installation
 
-Testing Method: Currently the only way to test the Server files is to run the Runner.py file. In order to do that, there are some examples ahead, depending on where was installed
-the Google Cloud SDK files:
+This API works with a Django Framework, which will require Python3, Pip, Pillow and django-admin.
 
-Call in UNIX: python runner.py ~/google/google-cloud-sdk/platform/google_appengine
-Call in Bash: ~/AppData/Local/Google/Cloud\ SDK/google-cloud-sdk/platform/google_appengine/runner.py .
-Call in Windows (the file runner.py has to be in said path): "%HOME%\AppData\Local\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine\runner.py" .
+In a virtual environment, type the following commands:
+pip install python
+pip install django --> Basic Django
+pip install django-admin --> Admin control
+pip install Pillow --> Image processing
 
-Google Cloud SDK must be installed
-Origin of Runner.py : https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/appengine/standard/localtesting/runner.py
+# Use
+
+python manage.py runserver
+
+# Tests
+
+python manage.py tests
+
+# Shell
+WARNING: In development, Shell's database is the one that is launched with runserver command. Therefore any changes typed by Shell will be transmitted to the testing server.
+
+python manage.py shell

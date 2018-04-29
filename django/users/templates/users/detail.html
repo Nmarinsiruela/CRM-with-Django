@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+
+{% block title %}User Detail{% endblock %}
+
+{% block content %}
+<h1>{{user_selected.username}}</h1>
+<ul>
+        <li>{{user_selected.first_name}}</li>
+        <li>{{user_selected.last_name}}</li>
+        <li>{% if user_selected.is_staff %} Admin {% else %}User{% endif %}</li>
+</ul>
+
+
+    <form action="{% url 'users:delete' user_selected.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete"/>
+    </form>
+
+    <form action="{% url 'users:update' user_selected.id %}" method="get">
+            {% csrf_token %}
+            <input type="submit" value="Update"/>
+    </form>
+
+{% endblock %}

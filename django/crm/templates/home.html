@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content %}
+<h2>Home</h2>
+
+{% if user.is_authenticated %} Select an option
+
+<form action="{% url 'crm:index' %}" method="get">
+    {% csrf_token %}
+    <input type="submit" value="Access to Customer Area" />
+</form>
+{% if user.is_staff %}
+<form action="{% url 'users:index' %}" method="get">
+    {% csrf_token %}
+    <input type="submit" value="Access to Admin Area" /> {% endif %}
+</form>
+
+{% else %} Hi Anonymous! {% endif %} {% endblock %}
