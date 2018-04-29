@@ -4,9 +4,9 @@
 
 {% block content %}
 
-{% if user_list %}
+<a href="{% url 'users:create' %}">Create New User</a>
 
-    <a href="{% url 'users:create' %}">Create New User</a>
+{% if user_list %}
     <ul>
     {% for user_selected in user_list %}
     <li><a href="{% url 'users:detail' user_selected.id %}">{{user_selected.last_name}},{{ user_selected.first_name }}</a></li>

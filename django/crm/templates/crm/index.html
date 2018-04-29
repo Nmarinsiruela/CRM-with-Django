@@ -4,6 +4,8 @@
 
 {% block content %}
 
+<a href="{% url 'crm:create' %}">Create New Customer</a>
+
 {% if latest_customer_list %}
     <ul>
     {% for customer in latest_customer_list %}
