@@ -9,11 +9,11 @@
 {% if user_list %}
     <ul>
     {% for user_selected in user_list %}
-    <li><a href="{% url 'users:detail' user_selected.id %}">{{user_selected.last_name}},{{ user_selected.first_name }}</a></li>
+    <li><a href="{% url 'users:detail' user_selected.id %}">{{user_selected.username}}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No customers found.</p>
+    <p>No users found.</p>
 {% endif %}
 
 {% endblock %}

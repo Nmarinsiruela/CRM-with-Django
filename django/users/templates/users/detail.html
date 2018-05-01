@@ -6,9 +6,9 @@
 {% block content %}
 <h1>{{user_selected.username}}</h1>
 <ul>
-        <li>{{user_selected.first_name}}</li>
-        <li>{{user_selected.last_name}}</li>
-        <li>{% if user_selected.is_staff %} Admin {% else %}User{% endif %}</li>
+        <li>First name: {{user_selected.first_name}}</li>
+        <li>Surname: {{user_selected.last_name}}</li>
+        <li>User Type: {% if user_selected.is_staff %} Admin {% else %}User{% endif %}</li>
 </ul>
 
 

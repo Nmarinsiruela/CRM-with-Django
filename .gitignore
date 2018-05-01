@@ -1,2 +1,4 @@
 django/mysite/environment/database.json
-django/mysite/environment/secret_key.txt
+*.jpg
+django/db.sqlite3
+django/mysite/environment/secret_keys.txt

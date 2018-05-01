@@ -9,14 +9,13 @@
 <h1>{{customer.name}}</h1>
 <ul>
         <li>ID: {{customer.id}}</li>
-        <li>{{customer.surname}}</li>
+        <li>Surname: {{customer.surname}}</li>
     <li>Last Modified by: {{customer.referenced_user}}</li>
 </ul>
 <img>
-
-<img style="width: 200px; height: 200px;"
-alt="Image description"
-src="{{customer.photo.url}}"/>
+    <img style="width: 150px; height: 150px;"
+    alt="Image description"
+    src="{{customer.photo.url}}"/>
 
 
     <form action="{% url 'crm:delete' customer.id %}" method="post">

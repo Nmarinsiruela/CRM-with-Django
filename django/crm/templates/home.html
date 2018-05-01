@@ -5,12 +5,12 @@
 
 <form action="{% url 'crm:index' %}" method="get">
     {% csrf_token %}
-    <input type="submit" value="Access to Customer Area" />
+    <input type="submit" value="Customer Area" />
 </form>
 {% if user.is_staff %}
 <form action="{% url 'users:index' %}" method="get">
     {% csrf_token %}
-    <input type="submit" value="Access to Admin Area" /> {% endif %}
+    <input type="submit" value="Admin Area" /> {% endif %}
 </form>
 
 {% else %} Hi Anonymous! {% endif %} {% endblock %}

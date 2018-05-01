@@ -118,11 +118,11 @@ class UserTestCase(TestCase):
         u = User.objects.get(username='admin')
         c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
         c.save()
-        response = self.client.post('/crm/{0}/update'.format(c.id), {'name': 'Agile' ,'surname': 'Test', 'referenced_user': u}, follow=True)
+        response = self.client.post('/crm/{0}/update'.format(c.id), {'name': 'Agile' ,'surname': 'Test', 'referenced_user': u.username}, follow=True)
         last_url = response.request['PATH_INFO']
         self.assertEqual(response.status_code, 200)
-        self.assertEqual('/crm/{0}/'.format(u.id), last_url)
-        self.assertEqual(response.context['customer'].referenced_user, u)
+        self.assertEqual('/crm/{0}/'.format(c.id), last_url)
+        self.assertEqual(response.context['customer'].referenced_user, u.username)
 
     def test_update_invalid_data(self):
         self.client.login(username='admin', password='Pass4312')
@@ -130,10 +130,10 @@ class UserTestCase(TestCase):
         c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
         c.save()
 
-        response = self.client.post('/crm/{0}/update'.format(u.id), {'name': '' ,'surname': 'Test', 'referenced_user': u}, follow=True)
+        response = self.client.post('/crm/{0}/update'.format(c.id), {'name': '' ,'surname': 'Test', 'referenced_user': u.username}, follow=True)
         last_url = response.request['PATH_INFO']
         self.assertEqual(response.status_code, 200)
-        self.assertEqual('/crm/{0}/update'.format(u.id), last_url)  
+        self.assertEqual('/crm/{0}/update'.format(c.id), last_url)  
     
     def test_update_invalid_customer(self):
         self.client.login(username='admin', password='Pass4312')

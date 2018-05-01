@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'crm:create' %}">
+<form method="post" enctype="multipart/form-data" action="{% url 'crm:create' %}">
     {% csrf_token %}
     <table>{{form.as_table}}</table>
     

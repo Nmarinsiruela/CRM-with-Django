@@ -12,13 +12,19 @@ from django.contrib import messages
 @login_required
 @user_passes_test(lambda u: u.is_staff)
 def index(request):
-    user_list = User.objects.order_by('-id')[:5]
+    '''
+    Shows all the Users created, in inversed creation order.
+    '''
+    user_list = User.objects.order_by('-id')
     context = {'user_list': user_list}
     return render(request, 'users/index.html', context)
 
 @login_required
 @user_passes_test(lambda u: u.is_staff)
 def delete(request, user_selected_id):
+    '''
+    Deletes the selected user. Requires its ID.
+    '''
     user_selected = get_object_or_404(User, pk=user_selected_id)
     if request.user.id is not user_selected.id:
         user_selected.delete()  
@@ -29,12 +35,21 @@ def delete(request, user_selected_id):
 @login_required
 @user_passes_test(lambda u: u.is_staff)
 def user_detail(request, user_selected_id):
+    '''
+    Access into the selected user information.
+    '''
     user_selected = get_object_or_404(User, pk=user_selected_id)
     return render(request, 'users/detail.html', {'user_selected': user_selected})
 
 @login_required
 @user_passes_test(lambda u: u.is_staff)
 def create(request):
+    '''
+    Creates a new User.
+    Requires: username, password.
+    Automatically generates: ID.
+    Optional: Name, surname.
+    '''
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
         if form.is_valid():
@@ -48,12 +63,16 @@ def create(request):
 @login_required
 @user_passes_test(lambda u: u.is_staff)
 def update(request, user_selected_id=None):
+    '''
+    Updates an existing User.
+    Requires: Valid username.
+    Special: An User is unable to remove its own admin privileges.
+    '''
     user_selected = get_object_or_404(User, pk=user_selected_id)
     if request.method == 'POST':
         form = UserUpdateForm(data=request.POST, instance=user_selected)
         if form.is_valid():
             user_up = form.save(commit=False)
-
             if request.user.id is user_up.id and request.user.is_staff is not user_up.is_staff:
                 messages.add_message(request, messages.INFO, 'You cannot remove your own admin privileges. Form invalidated')
             else:
