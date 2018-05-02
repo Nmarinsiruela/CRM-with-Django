@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # Extract secret variables
-with open(os.path.join(BASE_DIR, 'mysite\\environment\\secret_keys.txt')) as temp_file:
+with open(os.path.join(BASE_DIR, 'mysite/environment/secret_keys.txt')) as temp_file:
     env = [line.rstrip('\n') for line in temp_file]
 
 SECRET_KEY = env[0]
@@ -80,8 +80,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-with open(os.path.join(BASE_DIR, 'mysite\\environment\\database.json')) as f:
-    DATABASES = json.load(f)
+if DEBUG:
+    DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3"
+    }
+    }
+else:
+    with open(os.path.join(BASE_DIR, 'mysite/environment/database.json')) as f:
+        DATABASES = json.load(f)
 
 
 # Storage (Currently: Google Cloud Storage)

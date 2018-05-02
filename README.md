@@ -2,30 +2,32 @@
 
 ## Installation
 
-This API works with a Django Framework, MySQL, and Google Cloud Storage, which will require the following dependencies.
+This API works with a Django Framework, PostgreSQL, and Google Cloud Storage, which will require the following dependencies.
 
-In a virtual environment, type the following commands:
-* pip install python
-* pip install django
-* pip install django-admin
-* pip install Pillow            - For Python Image processing
-* pip install mysqlclient       - MySQL dependency
-* pip install django-storages   - Storage
-* pip install boto              - Storage
+In a virtual environment, type the following command, which will install all the necessary dependencies:
+* pip install -r requirements.txt
 
 ## First use
 
+Note: There is no superuser defined at the start, so it'll be necessary to create a new user by shell command the first time.
+
 After installing Django, in the virtual environment:
 
-* python manage.py makemigrations   - Take the latest models defined for the DB.
-* python manage.py migrate          - Create the necessary tables and DB from the migrations.
-* python manage.py check            - Verify that everything it's connected.
-* python manage.py runserver        - Run the server. By defect, it runs in localhost:8000.
+* python manage.py makemigrations       - Takes the latest models defined for the DB.
+* python manage.py migrate              - Creates the necessary tables and DB from the migrations.
+* python manage.py shell < initadmin.py - It'll create a first user with Admin privileges. (User: admin/ Pass: admin)
+* python manage.py check                - Verifies that everything it's correct.
+* python manage.py runserver            - By defect, the server runs in localhost:8000.
 
 ### Tests
-* python manage.py tests
+* python manage.py test
+
+### Docker
+
+Opening a console in the directory which has both Dockerfile and docker-compose.yml, it'll be possible to launch the whole project following Docker's commands:
+* docker-compose up
 
 ### Shell
-WARNING: In development, Shell's database is the one that is launched with runserver command. Therefore any changes typed by Shell will be transmitted to the testing server.
+WARNING: Shell's DB is the same that has been launched by runserver command. Therefore any changes typed by Shell will be transmitted to the current server.
 
 * python manage.py shell

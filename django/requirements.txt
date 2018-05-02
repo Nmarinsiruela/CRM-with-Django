@@ -1,0 +1,6 @@
+django
+django-admin-tools
+Pillow
+psycopg2
+django-storages
+boto
