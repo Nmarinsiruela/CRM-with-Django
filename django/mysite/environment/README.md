@@ -5,7 +5,7 @@ Which comprises:
 * "Django Secret Key"                   - Secret of the whole project, created by Django.
 * "Google Cloud Storage Access Key"     - GSC User identifier, created by Interoperability Setting.
 * "Google Cloud Storage Secret"         - GSC Secret, created by Interoperability Setting.
-* "Google Cloud Storage Bucket name"
+* "Google Cloud Storage Bucket name"    - Name of the GSC bucket.
 
 # database.json
 With the configuration of your database, following [Django Structure](https://docs.djangoproject.com/en/2.0/ref/settings/#databases):

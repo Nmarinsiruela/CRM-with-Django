@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
-
 {% block title %}Customer List{% endblock %}
-
 {% block content %}
-
-<a href="{% url 'crm:create' %}">Create New Customer</a>
+<h5><a href="{% url 'home' %}">Home</a> > <a href="{% url 'crm:index' %}">Customer Area</a></h5>
+<h3>Customer Area</h3>
 
 {% if latest_customer_list %}
+    <p>List of Customers:</p>
     <ul>
     {% for customer in latest_customer_list %}
     <li><a href="{% url 'crm:detail' customer.id %}">{{customer.surname}},{{ customer.name }}</a></li>
@@ -15,5 +14,10 @@
 {% else %}
     <p>No customers found.</p>
 {% endif %}
+<hr>
+<form action="{% url 'crm:create' %}" method="get">
+        {% csrf_token %}
+        <input type="submit" class="button add" value="New Customer" />
+</form>
 
 {% endblock %}

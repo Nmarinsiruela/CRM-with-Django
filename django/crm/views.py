@@ -48,7 +48,7 @@ def create(request):
         if form.is_valid():
             c = form.save(commit=False)
             c.photo = form.cleaned_data['photo']
-            c.referenced_user = request.user.username
+            c.created_by_user = request.user.username
             c.save()
             return HttpResponseRedirect(reverse('crm:index'))
     else:
@@ -60,7 +60,7 @@ def update(request, customer_id=None):
     '''
     Updates an existing Customer.
     Requires: Name, Surname.
-    Automatically generates: ID, Referenced_user.
+    Automatically generates: ID, last_modified_by_user.
     Optional: Profile picture.
     '''
     customer_selected = get_object_or_404(Customer, pk=customer_id)
@@ -69,7 +69,7 @@ def update(request, customer_id=None):
         if form.is_valid():
             customer_updated = form.save(commit=False)
             customer_updated.photo = form.cleaned_data['photo']
-            customer_updated.referenced_user = request.user.username
+            customer_updated.last_modified_by_user = request.user.username
             customer_updated.save()
             return HttpResponseRedirect(reverse('crm:detail', args=[customer_id]))
     else:

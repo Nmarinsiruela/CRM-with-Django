@@ -1,16 +1,18 @@
-{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content %}
+{% extends 'base.html' %} {% block content %}
 <h2>Home</h2>
-
-{% if user.is_authenticated %} Select an option:
-
-<form action="{% url 'crm:index' %}" method="get">
+<hr>
+{% if user.is_authenticated %} 
+<table>
+    Select an option:
+    <form action="{% url 'crm:index' %}" method="get">
     {% csrf_token %}
-    <input type="submit" value="Customer Area" />
+    <input type="submit" class="button" value="Customer Area" />
 </form>
 {% if user.is_staff %}
 <form action="{% url 'users:index' %}" method="get">
     {% csrf_token %}
-    <input type="submit" value="Admin Area" /> {% endif %}
-</form>
+    <input type="submit" class="button" value="Admin Area" /> {% endif %}
+</form></table>
 
-{% else %} Hi Anonymous! {% endif %} {% endblock %}
+
+{% else %} Hi, Anonymous! {% endif %} {% endblock %}

@@ -28,7 +28,7 @@ class UserTestCase(TestCase):
         it will be inmediately denied.
         '''
         User.objects.get(id=1)
-        cu = Customer.objects.create(name='Nestor', surname='Marin', referenced_user=self.user_creator)
+        cu = Customer.objects.create(name='Nestor', surname='Marin', created_by_user=self.user_creator)
 
         response = self.client.post('/crm/{0}/delete'.format(cu.id), follow=True)
         last_url = response.request['PATH_INFO']
@@ -65,7 +65,7 @@ class UserTestCase(TestCase):
     '''
     def test_create_customer(self):
         self.client.login(username='creator', password='Pass4312')
-        response = self.client.post('/crm/create', {'name': 'new_user', 'surname': 'customer', 'referenced_user': self.user_creator}, follow=True)
+        response = self.client.post('/crm/create', {'name': 'new_user', 'surname': 'customer', 'created_by_user': self.user_creator.username}, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['latest_customer_list']), 1)
 
@@ -80,11 +80,11 @@ class UserTestCase(TestCase):
 # [START Read Tests #3]
     def test_get_list(self):
         self.client.login(username='admin', password='Pass4312')
-        c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
+        c = Customer(name='Test', surname='Agile', created_by_user=self.user_creator)
         c.save()
-        c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
+        c = Customer(name='Test', surname='Agile', created_by_user=self.user_creator)
         c.save()
-        c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
+        c = Customer(name='Test', surname='Agile', created_by_user=self.user_creator)
         c.save()
         response = self.client.get(reverse('crm:index'), follow=True)
         last_url = response.request['PATH_INFO']
@@ -101,7 +101,7 @@ class UserTestCase(TestCase):
 # [START Delete Tests]
     def test_delete_customer(self):
         self.client.login(username='admin', password='Pass4312')
-        c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
+        c = Customer(name='Test', surname='Agile', created_by_user=self.user_creator)
         c.save()
         response = self.client.post('/crm/{0}/delete'.format(c.id), follow=True)
 
@@ -116,21 +116,22 @@ class UserTestCase(TestCase):
     def test_update(self):
         self.client.login(username='admin', password='Pass4312')
         u = User.objects.get(username='admin')
-        c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
+        c = Customer(name='Test', surname='Agile', created_by_user=self.user_creator.username)
         c.save()
-        response = self.client.post('/crm/{0}/update'.format(c.id), {'name': 'Agile' ,'surname': 'Test', 'referenced_user': u.username}, follow=True)
+        response = self.client.post('/crm/{0}/update'.format(c.id), {'name': 'Agile' ,'surname': 'Test', 'last_modified_by_user': u.username}, follow=True)
         last_url = response.request['PATH_INFO']
         self.assertEqual(response.status_code, 200)
         self.assertEqual('/crm/{0}/'.format(c.id), last_url)
-        self.assertEqual(response.context['customer'].referenced_user, u.username)
+        self.assertEqual(response.context['customer'].created_by_user, self.user_creator.username)
+        self.assertEqual(response.context['customer'].last_modified_by_user, u.username)
 
     def test_update_invalid_data(self):
         self.client.login(username='admin', password='Pass4312')
         u = User.objects.get(username='admin')
-        c = Customer(name='Test', surname='Agile', referenced_user=self.user_creator)
+        c = Customer(name='Test', surname='Agile', created_by_user=self.user_creator)
         c.save()
 
-        response = self.client.post('/crm/{0}/update'.format(c.id), {'name': '' ,'surname': 'Test', 'referenced_user': u.username}, follow=True)
+        response = self.client.post('/crm/{0}/update'.format(c.id), {'name': '' ,'surname': 'Test', 'created_by_user': u.username}, follow=True)
         last_url = response.request['PATH_INFO']
         self.assertEqual(response.status_code, 200)
         self.assertEqual('/crm/{0}/update'.format(c.id), last_url)  

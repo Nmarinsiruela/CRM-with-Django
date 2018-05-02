@@ -1,8 +1,0 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# Compiled output
-*.pyc
-
-# Environment private data
-/environment/database.json
-/environment/secret_key.txt
