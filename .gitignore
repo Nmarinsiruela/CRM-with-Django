@@ -1,0 +1,11 @@
+django/mysite/environment/database.json
+*.jpg
+
+django/*.sqlite3
+
+# Compiled output
+*.pyc
+
+# Environment private data
+django/mysite/environment/database.json
+django/mysite/environment/secret_keys.txt

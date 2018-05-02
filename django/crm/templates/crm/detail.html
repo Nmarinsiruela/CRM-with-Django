@@ -1,0 +1,36 @@
+ {% extends 'base.html' %} {% load staticfiles %} {% block title %}Customer Detail{% endblock %} {% block content %}
+<h5>
+    <a href="{% url 'home' %}">Home</a> >
+    <a href="{% url 'crm:index' %}">Customer Area</a>
+</h5>
+<h3>Customer Detail</h3>
+
+    <div class="customer"><ul>
+            <li>ID: {{customer.id}}</li>
+            <li>Name: {{customer.name}}</li>
+            <li>Surname: {{customer.surname}}</li>
+            <li>Created by: {{customer.created_by_user}}</li>
+            <li>Last Modified by: {{customer.last_modified_by_user}}</li>
+        </ul>
+        <img style="width: 150px; height: 150px;" alt="Image description" src="{{customer.photo.url}}" />
+    </div>
+
+<hr>
+<table>
+    <form action="{% url 'crm:delete' customer.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="button" value="Delete" />
+    </form>
+
+    <form action="{% url 'crm:update' customer.id %}" method="get">
+        {% csrf_token %}
+        <input type="submit" class="button confirm" value="Update" />
+    </form>
+</table>
+
+<hr>
+<form action="{% url 'crm:index' %}" method="get">
+    {% csrf_token %}
+    <input type="submit" class="button" value="Return to Customer Area" />
+</form>
+{% endblock %}
