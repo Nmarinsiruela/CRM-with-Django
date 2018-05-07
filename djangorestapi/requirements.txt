@@ -1,0 +1,7 @@
+django
+django-admin-tools
+djangorestframework
+Pillow
+psycopg2-binary
+django-storages
+boto
