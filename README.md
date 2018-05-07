@@ -1,5 +1,5 @@
 # REST API for a CRM Interface
-This API works with [Django Framework](https://docs.djangoproject.com/en/2.0/) as a client, PostgreSQL as the database, and Google Cloud Storage for image-related storing.
+This API works with [Django REST Framework](http://www.django-rest-framework.org/) as a client, PostgreSQL as the database, and Google Cloud Storage for image-related storing.
 
 In order to change from Developing to Production, just set the DEBUG variable from True to False, in the file settings.py.
 
