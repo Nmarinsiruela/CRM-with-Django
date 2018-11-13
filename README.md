@@ -1,7 +1,11 @@
-# REST API for a CRM Interface
+# Web API for a CRM Interface
 This API works with [Django Framework](https://docs.djangoproject.com/en/2.0/) as a client, PostgreSQL as the database, and Google Cloud Storage for image-related storing.
 
 In order to change from Developing to Production, just set the DEBUG variable from True to False, in the file settings.py.
+
+## Installation by Docker (Developing / Production)
+Opening a console in the directory which has both Dockerfile and docker-compose.yml files, it'll be possible to launch the whole project by simply following Docker's command:
+* docker-compose up
 
 ## Installation (Developing)
 In a virtual environment, type the following command, which will install all the necessary dependencies:
@@ -17,10 +21,6 @@ After installing Django, in the virtual environment:
 * python manage.py shell < initadmin.py - Creates a first user with Admin privileges. (User: admin/ Pass: admin)
 * python manage.py check                - Verifies that everything it's correct.
 * python manage.py runserver            - By defect, the server runs in localhost:8000.
-
-## Installation by Docker (Developing / Production)
-Opening a console in the directory which has both Dockerfile and docker-compose.yml files, it'll be possible to launch the whole project by simply following Docker's command:
-* docker-compose up
 
 ### Tests
 * python manage.py test
